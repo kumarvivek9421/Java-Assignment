@@ -1,0 +1,29 @@
+
+server:
+  port: 9094
+
+spring:
+  application:
+  name: API-Gatway
+
+  cloud:
+    getway:
+      routes:
+        - id: UserService
+          uri: lb://UserService
+          predicates:
+            - path= /user/api/**
+
+        - id: JournalEventService
+          uri: lb://JournalEventService
+          predicates:
+            - path= /event/api/**
+
+eureka:
+  instance:
+    prefer-id-address= ture
+  client:
+    fetch-registry= true
+    register-with-eureka= ture
+  service-url:
+    defaultZone= http://localhost:9093/eureka
